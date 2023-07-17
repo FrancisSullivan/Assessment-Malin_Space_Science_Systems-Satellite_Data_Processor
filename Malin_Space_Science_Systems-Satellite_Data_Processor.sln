@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Malin_Space_Science_Systems-Satellite_Data_Processor", "Malin_Space_Science_Systems-Satellite_Data_Processor.csproj", "{F4758756-C4FB-4C53-85D9-419A205EDA50}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4758756-C4FB-4C53-85D9-419A205EDA50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4758756-C4FB-4C53-85D9-419A205EDA50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4758756-C4FB-4C53-85D9-419A205EDA50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4758756-C4FB-4C53-85D9-419A205EDA50}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66A84435-FFDA-47C4-B302-C4BF1A11B933}
+	EndGlobalSection
+EndGlobal
