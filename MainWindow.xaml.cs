@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region Imports
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,15 +13,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+#endregion
+// Francis Sullivan 30034007
+// AT1 2023.07.17
 namespace Malin_Space_Science_Systems_Satellite_Data_Processor
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// 
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region Initialise Form
+        #region Initialisation
         public MainWindow()
         {
             InitializeComponent();

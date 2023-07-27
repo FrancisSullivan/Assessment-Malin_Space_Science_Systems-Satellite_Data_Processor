@@ -5,8 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Malin_Space_Science_Systems_Satellite_Data_Processor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="665">
+    <Grid Width="800">
+
+        <ComboBox HorizontalAlignment="Left" Margin="17,35,0,0" VerticalAlignment="Top" Width="51"/>
+        <ComboBox HorizontalAlignment="Left" Margin="87,35,0,0" VerticalAlignment="Top" Width="50"/>
+        <Label Content="Sigma" HorizontalAlignment="Left" Margin="17,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Mu" HorizontalAlignment="Left" Margin="87,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="Load Sensor Data" HorizontalAlignment="Left" Margin="17,62,0,0" VerticalAlignment="Top" Width="120"/>
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="17,87,663,24">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="267,35,431,35"/>
+        <Label Content="Sensor A" HorizontalAlignment="Left" Margin="155,0,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Binary Search &#xA;Iterative" HorizontalAlignment="Left" Margin="154,24,0,0" VerticalAlignment="Top" Height="44"/>
+        <TextBox HorizontalAlignment="Left" Margin="154,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="154,66,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Binary Search &#xA;Recursive" HorizontalAlignment="Left" Margin="154,117,0,0" VerticalAlignment="Top" Height="42" Width="81"/>
+        <TextBox HorizontalAlignment="Left" Margin="154,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="154,164,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Selection Sort" HorizontalAlignment="Left" Margin="150,254,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="154,304,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Sort" HorizontalAlignment="Left" Margin="154,280,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Insertion Sort" HorizontalAlignment="Left" Margin="150,330,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="154,381,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Sort" HorizontalAlignment="Left" Margin="154,356,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Sensor B" HorizontalAlignment="Left" Margin="409,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Search &#xD;&#xA;Target" HorizontalAlignment="Left" Margin="155,211,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="202,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="29" Height="19"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="520,35,178,35"/>
+        <Label Content="Binary Search &#xA;Iterative" HorizontalAlignment="Left" Margin="407,24,0,0" VerticalAlignment="Top" Height="44"/>
+        <TextBox HorizontalAlignment="Left" Margin="407,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="407,66,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Binary Search &#xA;Recursive" HorizontalAlignment="Left" Margin="407,117,0,0" VerticalAlignment="Top" Height="42" Width="81"/>
+        <TextBox HorizontalAlignment="Left" Margin="407,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="407,164,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Selection Sort" HorizontalAlignment="Left" Margin="403,254,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="407,304,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Sort" HorizontalAlignment="Left" Margin="407,280,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Insertion Sort" HorizontalAlignment="Left" Margin="403,330,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="407,381,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Sort" HorizontalAlignment="Left" Margin="407,356,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Search &#xA;Target" HorizontalAlignment="Left" Margin="408,211,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="455,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="29" Height="19"/>
 
     </Grid>
 </Window>
