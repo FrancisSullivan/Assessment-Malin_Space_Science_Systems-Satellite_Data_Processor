@@ -29,8 +29,8 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             InitializeComponent();
         }
         #endregion
-        #region Global Methods (4.3 to 4.4)
-        #region 4.1
+        #region Global Methods (4.1 to 4.4)
+        #region 4.1 Linked Lists
         /*
         Create two data structures using the LinkedList<T> class from the C# Systems.Collections.Generic
         namespace. The data must be of type “double”; you are not permitted to use any additional classes,
@@ -38,7 +38,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         The two LinkedLists of type double are to be declared as global within the “public partial class”.
         */
         #endregion
-        #region 4.2
+        #region 4.2 Load Data from DLL into Linked Lists
         /*
         Copy the Galileo.DLL file into the root directory of your solution folder and add the appropriate
         reference in the solution explorer. Create a method called “LoadData” which will populate both
@@ -49,14 +49,14 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         return type is void.
         */
         #endregion
-        #region 4.3
+        #region 4.3 Display Linked Lists in List View
         /*
         Create a custom method called “ShowAllSensorData” which will display both LinkedLists in a
         ListView. Add column titles “Sensor A” and “Sensor B” to the ListView. The input parameters are
         empty, and the return type is void.
         */
         #endregion
-        #region 4.4
+        #region 4.4 Call 4.2 & 4.3
         /*
         Create a button and associated click method that will call the LoadData and ShowAllSensorData methods. 
         The input parameters are empty, and the return type is void.
@@ -64,14 +64,14 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         #endregion
         #endregion
         #region Utility Methods (4.5 to 4.6)
-        #region 4.5
+        #region 4.5 Count Linked List Elements
         /*
         Create a method called “NumberOfNodes” that will return an integer which is the number of
         nodes(elements) in a LinkedList. The method signature will have an input parameter of type
         LinkedList, and the calling code argument is the linkedlist name.
         */
         #endregion
-        #region 4.6
+        #region 4.6 Display Linked Lists in List Boxes
         /*
         Create a method called “DisplayListboxData” that will display the content of a LinkedList inside the
         appropriate ListBox. The method signature will have two input parameters; a LinkedList, and the
@@ -80,21 +80,21 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         #endregion
         #endregion
         #region Sort and Search Methods (4.7 to 4.10)
-        #region 4.7
+        #region 4.7 Sort: Selection
         /*
         Create a method called “SelectionSort” which has a single input parameter of type LinkedList, while
         the calling code argument is the linkedlist name. The method code must follow the pseudo code
         supplied below in the Appendix. The return type is Boolean.
         */
         #endregion
-        #region 4.8
+        #region 4.8 Sort: Insertion
         /*
         Create a method called “InsertionSort” which has a single parameter of type LinkedList, while the
         calling code argument is the linkedlist name. The method code must follow the pseudo code supplied
         below in the Appendix. The return type is Boolean.
         */
         #endregion
-        #region 4.9
+        #region 4.9 Search: Iterative
         /*
         Create a method called “BinarySearchIterative” which has the following four parameters: LinkedList,
         SearchValue, Minimum and Maximum. This method will return an integer of the linkedlist element
@@ -103,7 +103,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         follow the pseudo code supplied below in the Appendix.
         */
         #endregion
-        #region 4.10
+        #region 4.10 Search: Recursive
         /*
         Create a method called “BinarySearchRecursive” which has the following four parameters: LinkedList,
         SearchValue, Minimum and Maximum. This method will return an integer of the linkedlist element
@@ -114,7 +114,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         #endregion
         #endregion
         #region UI Button Methods (4.11 to 4.15)
-        #region 4.11
+        #region 4.11 Buttons: Search
         /*
         Create four button click methods that will search the LinkedList for an integer value entered into a
         textbox on the form. The four methods are:
@@ -128,7 +128,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         and highlight the search target number and two values on each side
         */
         #endregion
-        #region 4.12
+        #region 4.12 Buttons: Sort
         /*
         Create four button click methods that will sort the LinkedList using the Selection and Insertion
         methods. The four methods are:
@@ -142,14 +142,14 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         appropriate sensor.
         */
         #endregion
-        #region 4.13
+        #region 4.13 Combo Boxes: Sigma and Mu
         /*
         Add two numeric input controls for Sigma and Mu. The value for Sigma must be limited with a
         minimum of 10 and a maximum of 20. Set the default value to 10. The value for Mu must be limited
         with a minimum of 35 and a maximum of 75. Set the default value to 50.
         */
         #endregion
-        #region 4.14
+        #region 4.14 Text Boxes: Interger Input for Search
         /*
         Add two textboxes for the search value; one for each sensor, ensure only numeric integer values can
         be entered.
