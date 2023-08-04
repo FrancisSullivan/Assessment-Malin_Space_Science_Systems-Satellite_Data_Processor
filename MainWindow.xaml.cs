@@ -1,6 +1,8 @@
 ﻿#region Imports
+using Galileo6;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,19 +16,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 #endregion
-// Francis Sullivan 30034007
-// AT1 2023.07.17
 namespace Malin_Space_Science_Systems_Satellite_Data_Processor
 {
+    #region Summary
     /// <summary>
     /// 
     /// </summary>
+    #endregion
     public partial class MainWindow : Window
     {
         #region Initialisation
         public MainWindow()
         {
             InitializeComponent();
+            PopulateComboBox();
         }
         #endregion
         #region Global Methods (4.1 to 4.4)
@@ -37,6 +40,10 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         nodes, pointers or data structures (array, list, etc) in the implementation of this application. 
         The two LinkedLists of type double are to be declared as global within the “public partial class”.
         */
+
+        // Declare two global variables which represent the LinkedLists for Sensor A and Sensor B.
+        public LinkedList<double> SensorA_LinkedList = new LinkedList<double>();
+        public LinkedList<double> SensorB_LinkedList = new LinkedList<double>();
         #endregion
         #region 4.2 Load Data from DLL into Linked Lists
         /*
@@ -48,6 +55,28 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         hardcoded inside the method and must be equal to 400. The input parameters are empty, and the
         return type is void.
         */
+
+        // Create a method called “LoadData” which will populate both LinkedLists.
+        private void LoadData()
+        {
+            // Declare an instance of the Galileo library.
+            Galileo6.ReadData galileoInstance = new Galileo6.ReadData();
+
+            // Clear the linked lists before they are loaded.
+            SensorA_LinkedList.Clear();
+            SensorB_LinkedList.Clear();
+
+            // Load selected values for 'sigma' and 'mu' from the combo box.
+            double mu = (double) MuComboBox.SelectedItem;
+            double sigma = (double) SigmaComboBox.SelectedItem;
+
+            // Populate the two linked lists.
+            for (int i = 0; i < 400; i++)
+            {
+                SensorA_LinkedList.AddLast(galileoInstance.SensorA(mu, sigma));
+                SensorB_LinkedList.AddLast(galileoInstance.SensorB(mu, sigma));
+            }
+        }
         #endregion
         #region 4.3 Display Linked Lists in List View
         /*
@@ -55,12 +84,29 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         ListView. Add column titles “Sensor A” and “Sensor B” to the ListView. The input parameters are
         empty, and the return type is void.
         */
+        private void ShowAllSensorData()
+        {
+            // Clear the list view before it is loaded.
+            SensorDataListView.Items.Clear();
+
+            // Populate the list view with items from linked lists.
+            for (int i = 0; i < SensorA_LinkedList.Count; i++)
+            {
+                SensorDataListView.Items.Add(new { SensorA_ListView = SensorA_LinkedList.ElementAt(i), SensorB_ListView = SensorB_LinkedList.ElementAt(i)});
+            }
+        }
         #endregion
-        #region 4.4 Call 4.2 & 4.3
+        #region 4.4 Call methods from 4.2 & 4.3
         /*
         Create a button and associated click method that will call the LoadData and ShowAllSensorData methods. 
         The input parameters are empty, and the return type is void.
         */
+
+        private void LoadSensorDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadData();
+            ShowAllSensorData();
+        }
         #endregion
         #endregion
         #region Utility Methods (4.5 to 4.6)
@@ -148,13 +194,33 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         minimum of 10 and a maximum of 20. Set the default value to 10. The value for Mu must be limited
         with a minimum of 35 and a maximum of 75. Set the default value to 50.
         */
+        private void PopulateComboBox()
+        {
+            // The value for Sigma must be limited with a minimum of 10 and a maximum of 20.
+            for (double sigma = 10.0; sigma <= 20.0; sigma++)
+            {
+                SigmaComboBox.Items.Add(sigma);
+            }
+            // Set the default value to 10.
+            SigmaComboBox.SelectedItem = 10.0;
+
+            // The value for Mu must be limited with a minimum of 35 and a maximum of 75.
+            for (double mu = 35.0; mu <= 75.0; mu++)
+            {
+                MuComboBox.Items.Add(mu);
+            }
+            // Set the default value to 50.
+            MuComboBox.SelectedItem = 50.0;
+        }
         #endregion
+
         #region 4.14 Text Boxes: Interger Input for Search
         /*
         Add two textboxes for the search value; one for each sensor, ensure only numeric integer values can
         be entered.
         */
         #endregion
+
         #endregion
     }
 }
