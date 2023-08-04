@@ -2,7 +2,9 @@
 using Galileo6;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Contracts;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,6 +73,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             double sigma = (double) SigmaComboBox.SelectedItem;
 
             // Populate the two linked lists.
+            // The LinkedList size is hardcoded and must be equal to 400.
             for (int i = 0; i < 400; i++)
             {
                 SensorA_LinkedList.AddLast(galileoInstance.SensorA(mu, sigma));
@@ -90,7 +93,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             SensorDataListView.Items.Clear();
 
             // Populate the list view with items from linked lists.
-            for (int i = 0; i < SensorA_LinkedList.Count; i++)
+            for (int i = 0; i < NumberOfNodes(SensorA_LinkedList); i++)
             {
                 SensorDataListView.Items.Add(new { SensorA_ListView = SensorA_LinkedList.ElementAt(i), SensorB_ListView = SensorB_LinkedList.ElementAt(i)});
             }
@@ -116,6 +119,10 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         nodes(elements) in a LinkedList. The method signature will have an input parameter of type
         LinkedList, and the calling code argument is the linkedlist name.
         */
+        private int NumberOfNodes(LinkedList<double> linkedListParameter)
+        {
+            return linkedListParameter.Count;
+        }
         #endregion
         #region 4.6 Display Linked Lists in List Boxes
         /*
@@ -123,6 +130,17 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         appropriate ListBox. The method signature will have two input parameters; a LinkedList, and the
         ListBox name. The calling code argument is the linkedlist name and the listbox name.
         */
+        private void DisplayListboxData(LinkedList<double> linkedListParameter, ListBox listBoxParameter)
+        {
+            // Clear the list view before it is loaded.
+            listBoxParameter.Items.Clear();
+
+            // Populate the list view with items from linked lists.
+            for (int i = 0; i < NumberOfNodes(SensorA_LinkedList); i++)
+            {
+                listBoxParameter.Items.Add(linkedListParameter.ElementAt(i));
+            }
+        }
         #endregion
         #endregion
         #region Sort and Search Methods (4.7 to 4.10)
@@ -213,14 +231,16 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             MuComboBox.SelectedItem = 50.0;
         }
         #endregion
-
         #region 4.14 Text Boxes: Interger Input for Search
         /*
         Add two textboxes for the search value; one for each sensor, ensure only numeric integer values can
         be entered.
         */
         #endregion
-
+        #endregion
+        #region Use later
+        //DisplayListboxData(SensorA_LinkedList, SensorA_ListBox);
+        //DisplayListboxData(SensorB_LinkedList, SensorB_ListBox);
         #endregion
     }
 }
