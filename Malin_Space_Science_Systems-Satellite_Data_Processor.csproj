@@ -6,6 +6,7 @@
     <RootNamespace>Malin_Space_Science_Systems_Satellite_Data_Processor</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>satellite-icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Malin_Space_Science_Systems_Satellite_Data_Processor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="358" Width="665">
+        Title="Satellite Data Processor" Height="358" Width="665">
+    
     <Grid Width="800" Margin="0,0,-135,0" Height="469" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="79*"/>
