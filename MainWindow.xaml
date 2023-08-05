@@ -16,7 +16,7 @@
         <ComboBox x:Name="SigmaComboBox" HorizontalAlignment="Left" Margin="17,35,0,0" Width="51" VerticalAlignment="Top">
             <ComboBoxItem/>
         </ComboBox>
-        <ComboBox x:Name="MuComboBox" HorizontalAlignment="Left" Margin="8,35,0,0" VerticalAlignment="Top" Width="50" Grid.Column="1"/>
+        <ComboBox x:Name="MuComboBox" HorizontalAlignment="Left" Margin="26,35,0,0" VerticalAlignment="Top" Width="50" Grid.Column="1"/>
 
         <Label Content="Sigma" HorizontalAlignment="Left" Margin="17,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Mu" HorizontalAlignment="Left" Margin="8,10,0,0" VerticalAlignment="Top" Grid.Column="1"/>
@@ -35,10 +35,10 @@
         <Button Content="Search Iterative" HorizontalAlignment="Left" Margin="102,181,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
         <TextBox HorizontalAlignment="Left" Margin="102,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
         <Button Content="Search Recursive" HorizontalAlignment="Left" Margin="102,229,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
-        <TextBox x:Name="SortIterativeTextBox" HorizontalAlignment="Left" Margin="102,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
-        <Button Content="Sort Iterative" HorizontalAlignment="Left" Margin="102,85,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Margin="102,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
-        <Button Content="Sort Recursive" HorizontalAlignment="Left" Margin="102,133,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
+        <TextBox x:Name="SensorA_InsertionSortTextBox" HorizontalAlignment="Left" Margin="102,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
+        <Button x:Name="SensorA_InsertionSortButton" Content="Insertion Sort" HorizontalAlignment="Left" Margin="102,85,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Grid.Column="1" Click="SensorA_InsertionSortButton_Click"/>
+        <TextBox x:Name="SensorA_SelectionSortTextBox" HorizontalAlignment="Left" Margin="102,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
+        <Button x:Name="SensorA_SelectionSortButton" Content="Selection Sort" HorizontalAlignment="Left" Margin="102,133,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorA_SelectionSortButton_Click"/>
         <TextBox HorizontalAlignment="Left" Margin="102,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="19" Grid.Column="1"/>
         <Label Grid.Column="1" Content="Search Target:" HorizontalAlignment="Left" Margin="102,35,0,0" VerticalAlignment="Top" Width="100"/>
         <ListBox x:Name="SensorB_ListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="464,39,159,141" Grid.Column="1" Grid.ColumnSpan="2"/>
@@ -47,10 +47,10 @@
         <Button Content="Search Iterative" HorizontalAlignment="Left" Margin="344,181,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
         <TextBox HorizontalAlignment="Left" Margin="344,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
         <Button Content="Search Recursive" HorizontalAlignment="Left" Margin="344,229,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Margin="344,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
-        <Button Content="Sort Iterative" HorizontalAlignment="Left" Margin="344,85,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Margin="344,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
-        <Button Content="Sort Recursive" HorizontalAlignment="Left" Margin="344,133,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
+        <TextBox x:Name="SensorB_InsertionSortTextBox" HorizontalAlignment="Left" Margin="344,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
+        <Button x:Name="SensorB_InsertionSortButton" Content="Insertion Sort" HorizontalAlignment="Left" Margin="344,85,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Grid.Column="1" Click="SensorB_InsertionSortButton_Click"/>
+        <TextBox x:Name="SensorB_SelectionSortTextBox" HorizontalAlignment="Left" Margin="344,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False"/>
+        <Button x:Name="SensorB_SelectionSortButton" Content="Selection Sort" HorizontalAlignment="Left" Margin="344,133,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorB_SelectionSortButton_Click"/>
         <TextBox HorizontalAlignment="Left" Margin="344,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="19" Grid.Column="1"/>
         <Label Grid.Column="1" Content="Search Target:" HorizontalAlignment="Left" Margin="344,35,0,0" VerticalAlignment="Top" Width="100"/>
 

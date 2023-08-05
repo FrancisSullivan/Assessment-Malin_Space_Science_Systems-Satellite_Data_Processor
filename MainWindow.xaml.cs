@@ -3,6 +3,7 @@ using Galileo6;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         public MainWindow()
         {
             InitializeComponent();
-            PopulateComboBox();
+            PopulateComboBoxes();
         }
         #endregion
         #region Global Methods (4.1 to 4.4)
@@ -104,11 +105,12 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         Create a button and associated click method that will call the LoadData and ShowAllSensorData methods. 
         The input parameters are empty, and the return type is void.
         */
-
         private void LoadSensorDataButton_Click(object sender, RoutedEventArgs e)
         {
             LoadData();
             ShowAllSensorData();
+            DisplayListboxData(SensorA_LinkedList, SensorA_ListBox);
+            DisplayListboxData(SensorB_LinkedList, SensorB_ListBox);
         }
         #endregion
         #endregion
@@ -150,6 +152,28 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         the calling code argument is the linkedlist name. The method code must follow the pseudo code
         supplied below in the Appendix. The return type is Boolean.
         */
+        private bool SelectionSort(LinkedList<double> linkedListParameter)
+        {
+            int min;
+            int max = NumberOfNodes(linkedListParameter);
+            for (int i = 0; i < max -1; i++)
+            {
+                min = i;
+                for (int j = i + 1; j < max; j++)
+                {
+                    if (linkedListParameter.ElementAt(j) < linkedListParameter.ElementAt(min))
+                    {
+                        min = j;
+                    }
+                }
+                LinkedListNode<double> currentMin = linkedListParameter.Find(linkedListParameter.ElementAt(min));
+                LinkedListNode<double> currentI = linkedListParameter.Find(linkedListParameter.ElementAt(i));
+                var temp = currentMin.Value;
+                currentMin.Value = currentI.Value;
+                currentI.Value = temp;
+            }
+            return true;
+        }
         #endregion
         #region 4.8 Sort: Insertion
         /*
@@ -157,6 +181,24 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         calling code argument is the linkedlist name. The method code must follow the pseudo code supplied
         below in the Appendix. The return type is Boolean.
         */
+        private bool InsertionSort(LinkedList<double> linkedListParameter)
+        {
+            int max = NumberOfNodes(linkedListParameter);
+            for (int i = 0; i < max - 1; i++)
+            {
+                for (int j = i + 1; j > 0; j--)
+                {
+                    if (linkedListParameter.ElementAt(j - 1) > linkedListParameter.ElementAt(j))
+                    {
+                        LinkedListNode<double> current = linkedListParameter.Find(linkedListParameter.ElementAt(j));
+                        var temp = current.Previous.Value;
+                        current.Previous.Value = current.Value;
+                        current.Value = temp;
+                    }
+                }
+            }
+            return true;
+        }
         #endregion
         #region 4.9 Search: Iterative
         /*
@@ -166,6 +208,13 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         name, search value, minimum list size and the number of nodes in the list. The method code must
         follow the pseudo code supplied below in the Appendix.
         */
+
+        /*
+        private bool BinarySearchIterative()
+        {
+            return;
+        }
+        */
         #endregion
         #region 4.10 Search: Recursive
         /*
@@ -174,6 +223,13 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         from a successful search or the nearest neighbour value. The calling code argument is the linkedlist
         name, search value, minimum list size and the number of nodes in the list. The method code must
         follow the pseudo code supplied below in the Appendix.
+        */
+
+        /*
+        private bool BinarySearchRecursive()
+        {
+            return;
+        }
         */
         #endregion
         #endregion
@@ -205,6 +261,50 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         Finally, the code/method will call the “ShowAllSensorData” method and “DisplayListboxData” for the
         appropriate sensor.
         */
+
+        // 1. Button click method for Sensor A and Selection Sort.
+        private void SensorA_SelectionSortButton_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSortDisplay(SelectionSort, SensorA_LinkedList, SensorA_ListBox, SensorA_SelectionSortTextBox);
+        }
+
+        // 2. Button click method for Sensor A and Insertion Sort.
+        private void SensorA_InsertionSortButton_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSortDisplay(InsertionSort, SensorA_LinkedList, SensorA_ListBox, SensorA_InsertionSortTextBox);
+        }
+
+        // 3. Button click method for Sensor B and Selection Sort.
+        private void SensorB_SelectionSortButton_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSortDisplay(SelectionSort, SensorB_LinkedList, SensorB_ListBox, SensorB_SelectionSortTextBox);
+        }
+
+        // 4. Button click method for Sensor B and Insertion Sort.
+        private void SensorB_InsertionSortButton_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSortDisplay(InsertionSort, SensorB_LinkedList, SensorB_ListBox, SensorB_InsertionSortTextBox);
+        }
+
+        // Method to reduce repetition.
+        private void TimeSortDisplay(Func <LinkedList<double>, bool> sortTypeParameter, LinkedList<double> linkedListParameter, ListBox listBoxParameter, TextBox textBoxParamater)
+        {
+            // Start timer.
+            Stopwatch sw = Stopwatch.StartNew();
+
+            // Sort.
+            sortTypeParameter(linkedListParameter);
+            
+            // Stop timer.
+            sw.Stop();
+
+            // Display sort time in milliseconds in text box.
+            textBoxParamater.Clear();
+            textBoxParamater.Text = sw.ElapsedMilliseconds.ToString() + " ms";
+
+            // Display linked list in list box.
+            DisplayListboxData(linkedListParameter, listBoxParameter);
+        }
         #endregion
         #region 4.13 Combo Boxes: Sigma and Mu
         /*
@@ -212,7 +312,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         minimum of 10 and a maximum of 20. Set the default value to 10. The value for Mu must be limited
         with a minimum of 35 and a maximum of 75. Set the default value to 50.
         */
-        private void PopulateComboBox()
+        private void PopulateComboBoxes()
         {
             // The value for Sigma must be limited with a minimum of 10 and a maximum of 20.
             for (double sigma = 10.0; sigma <= 20.0; sigma++)
@@ -239,8 +339,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         #endregion
         #endregion
         #region Use later
-        //DisplayListboxData(SensorA_LinkedList, SensorA_ListBox);
-        //DisplayListboxData(SensorB_LinkedList, SensorB_ListBox);
+
         #endregion
     }
 }
