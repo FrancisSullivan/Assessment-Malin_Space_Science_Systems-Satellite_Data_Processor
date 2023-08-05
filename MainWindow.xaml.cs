@@ -21,7 +21,7 @@ using System.Windows.Shapes;
 #endregion
 namespace Malin_Space_Science_Systems_Satellite_Data_Processor
 {
-    #region Summary
+    #region -->TO DO!<-- Summary
     /// <summary>
     /// 
     /// </summary>
@@ -145,7 +145,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         }
         #endregion
         #endregion
-        #region Sort and Search Methods (4.7 to 4.10)
+        #region -->TO DO!<-- Sort and Search Methods (4.7 to 4.10)
         #region 4.7 Sort: Selection
         /*
         Create a method called “SelectionSort” which has a single input parameter of type LinkedList, while
@@ -200,7 +200,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             return true;
         }
         #endregion
-        #region 4.9 Search: Iterative
+        #region -->TO DO!<-- 4.9 Search: Iterative
         /*
         Create a method called “BinarySearchIterative” which has the following four parameters: LinkedList,
         SearchValue, Minimum and Maximum. This method will return an integer of the linkedlist element
@@ -216,7 +216,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         }
         */
         #endregion
-        #region 4.10 Search: Recursive
+        #region -->TO DO!<-- 4.10 Search: Recursive
         /*
         Create a method called “BinarySearchRecursive” which has the following four parameters: LinkedList,
         SearchValue, Minimum and Maximum. This method will return an integer of the linkedlist element
@@ -233,8 +233,8 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         */
         #endregion
         #endregion
-        #region UI Button Methods (4.11 to 4.15)
-        #region 4.11 Buttons: Search
+        #region -->TO DO!<-- UI Button Methods (4.11 to 4.15)
+        #region -->TO DO!<-- 4.11 Buttons: Search
         /*
         Create four button click methods that will search the LinkedList for an integer value entered into a
         textbox on the form. The four methods are:
@@ -331,15 +331,12 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             MuComboBox.SelectedItem = 50.0;
         }
         #endregion
-        #region 4.14 Text Boxes: Interger Input for Search
+        #region -->TO DO!<-- 4.14 Text Boxes: Interger Input for Search
         /*
         Add two textboxes for the search value; one for each sensor, ensure only numeric integer values can
         be entered.
         */
         #endregion
-        #endregion
-        #region Use later
-
         #endregion
     }
 }
