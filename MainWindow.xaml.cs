@@ -33,6 +33,9 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         {
             InitializeComponent();
             PopulateComboBoxes();
+            DisableSearchTargetTextBox();
+            DisableSearchButtons();
+            DisableSortButtons();
         }
         #endregion
         #region Global Methods (4.1 to 4.4)
@@ -98,6 +101,18 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             {
                 SensorDataListView.Items.Add(new { SensorA_ListView = SensorA_LinkedList.ElementAt(i), SensorB_ListView = SensorB_LinkedList.ElementAt(i)});
             }
+
+            // Clear all text boxes
+            SensorA_InsertionSortTextBox.Clear();
+            SensorB_InsertionSortTextBox.Clear();
+            SensorA_SelectionSortTextBox.Clear();
+            SensorB_SelectionSortTextBox.Clear();
+            SensorA_SearchTargetTextBox.Clear();
+            SensorB_SearchTargetTextBox.Clear();
+            SensorA_IterativeSearchTextBox.Clear();
+            SensorB_IterativeSearchTextBox.Clear();
+            SensorA_RecursiveSearchTextBox.Clear();
+            SensorB_RecursiveSearchTextBox.Clear();
         }
         #endregion
         #region 4.4 Call methods from 4.2 & 4.3
@@ -111,6 +126,9 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             ShowAllSensorData();
             DisplayListboxData(SensorA_LinkedList, SensorA_ListBox);
             DisplayListboxData(SensorB_LinkedList, SensorB_ListBox);
+            DisableSearchButtons();
+            DisableSearchTargetTextBox();
+            EnableSortButtons();
         }
         #endregion
         #endregion
@@ -208,13 +226,11 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         name, search value, minimum list size and the number of nodes in the list. The method code must
         follow the pseudo code supplied below in the Appendix.
         */
-
-        /*
-        private bool BinarySearchIterative()
+        private int BinarySearchIterative()
         {
-            return;
+            int one = 1;
+            return one;
         }
-        */
         #endregion
         #region -->TO DO!<-- 4.10 Search: Recursive
         /*
@@ -247,6 +263,21 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         displayed in a read only textbox. Finally, the code/method will call the “DisplayListboxData” method
         and highlight the search target number and two values on each side
         */
+
+        private void EnableSearchButtons()
+        {
+            SensorA_IterativeSearchButton.IsEnabled = true;
+            SensorB_IterativeSearchButton.IsEnabled = true;
+            SensorA_RecursiveSearchButton.IsEnabled = true;
+            SensorB_RecursiveSearchButton.IsEnabled = true;
+        }
+        private void DisableSearchButtons()
+        {
+            SensorA_IterativeSearchButton.IsEnabled = false;
+            SensorB_IterativeSearchButton.IsEnabled = false;
+            SensorA_RecursiveSearchButton.IsEnabled = false;
+            SensorB_RecursiveSearchButton.IsEnabled = false;
+        }
         #endregion
         #region 4.12 Buttons: Sort
         /*
@@ -261,6 +292,29 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         Finally, the code/method will call the “ShowAllSensorData” method and “DisplayListboxData” for the
         appropriate sensor.
         */
+
+        // Method to reduce repetition.
+        private void TimeSortDisplay(Func<LinkedList<double>, bool> sortTypeParameter, LinkedList<double> linkedListParameter, ListBox listBoxParameter, TextBox textBoxParamater)
+        {
+            // Start timer.
+            Stopwatch sw = Stopwatch.StartNew();
+
+            // Sort.
+            sortTypeParameter(linkedListParameter);
+
+            // Stop timer.
+            sw.Stop();
+
+            // Display sort time in milliseconds in text box.
+            textBoxParamater.Clear();
+            textBoxParamater.Text = sw.ElapsedMilliseconds.ToString() + " ms";
+
+            // Display linked list in list box.
+            DisplayListboxData(linkedListParameter, listBoxParameter);
+
+            // Enable searching elements.
+            EnableSearchTargetTextBox();
+        }
 
         // 1. Button click method for Sensor A and Selection Sort.
         private void SensorA_SelectionSortButton_Click(object sender, RoutedEventArgs e)
@@ -286,24 +340,19 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             TimeSortDisplay(InsertionSort, SensorB_LinkedList, SensorB_ListBox, SensorB_InsertionSortTextBox);
         }
 
-        // Method to reduce repetition.
-        private void TimeSortDisplay(Func <LinkedList<double>, bool> sortTypeParameter, LinkedList<double> linkedListParameter, ListBox listBoxParameter, TextBox textBoxParamater)
+        private void EnableSortButtons()
         {
-            // Start timer.
-            Stopwatch sw = Stopwatch.StartNew();
-
-            // Sort.
-            sortTypeParameter(linkedListParameter);
-            
-            // Stop timer.
-            sw.Stop();
-
-            // Display sort time in milliseconds in text box.
-            textBoxParamater.Clear();
-            textBoxParamater.Text = sw.ElapsedMilliseconds.ToString() + " ms";
-
-            // Display linked list in list box.
-            DisplayListboxData(linkedListParameter, listBoxParameter);
+            SensorA_SelectionSortButton.IsEnabled = true;
+            SensorB_SelectionSortButton.IsEnabled = true;
+            SensorA_InsertionSortButton.IsEnabled = true;
+            SensorB_InsertionSortButton.IsEnabled = true;
+        }
+        private void DisableSortButtons()
+        {
+            SensorA_SelectionSortButton.IsEnabled = false;
+            SensorB_SelectionSortButton.IsEnabled = false;
+            SensorA_InsertionSortButton.IsEnabled = false;
+            SensorB_InsertionSortButton.IsEnabled = false;
         }
         #endregion
         #region 4.13 Combo Boxes: Sigma and Mu
@@ -336,6 +385,16 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         Add two textboxes for the search value; one for each sensor, ensure only numeric integer values can
         be entered.
         */
+        private void EnableSearchTargetTextBox()
+        {
+            SensorA_SearchTargetTextBox.IsEnabled = true;
+            SensorB_SearchTargetTextBox.IsEnabled = true;
+        }
+        private void DisableSearchTargetTextBox()
+        {
+            SensorA_SearchTargetTextBox.IsEnabled = false;
+            SensorB_SearchTargetTextBox.IsEnabled = false;
+        }
         #endregion
         #endregion
     }
