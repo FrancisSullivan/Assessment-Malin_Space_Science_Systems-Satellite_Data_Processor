@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Malin_Space_Science_Systems_Satellite_Data_Processor"
         mc:Ignorable="d"
         Title="Satellite Data Processor" Height="358" Width="665">
-    
+
     <Grid Width="800" Margin="0,0,-135,0" Height="469" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="79*"/>
@@ -14,15 +14,15 @@
             <ColumnDefinition Width="225*"/>
         </Grid.ColumnDefinitions>
 
-        <ComboBox x:Name="SigmaComboBox" HorizontalAlignment="Left" Margin="17,35,0,0" Width="51" VerticalAlignment="Top">
+        <ComboBox x:Name="SigmaComboBox" HorizontalAlignment="Left" Margin="17,47,0,0" Width="51" VerticalAlignment="Top">
             <ComboBoxItem/>
         </ComboBox>
-        <ComboBox x:Name="MuComboBox" HorizontalAlignment="Left" Margin="26,35,0,0" VerticalAlignment="Top" Width="50" Grid.Column="1"/>
+        <ComboBox x:Name="MuComboBox" HorizontalAlignment="Left" Margin="26,47,0,0" VerticalAlignment="Top" Width="50" Grid.Column="1"/>
 
-        <Label x:Name="SigmaLabel" Content="Sigma" HorizontalAlignment="Left" Margin="17,10,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="MuLabel" Content="Mu" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Button x:Name="LoadSensorDataButton" Content="Load Sensor Data" HorizontalAlignment="Left" Margin="17,62,0,0" VerticalAlignment="Top" Width="138" Grid.ColumnSpan="2" Click="LoadSensorDataButton_Click"/>
-        <ListView x:Name="SensorDataListView" Margin="17,87,420,0" Grid.ColumnSpan="2" d:ItemsSource="{d:SampleData ItemCount=5}" Height="214" VerticalAlignment="Top">
+        <Label x:Name="SigmaLabel" Content="Sigma" HorizontalAlignment="Center" Margin="0,23,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="MuLabel" Content="Mu" HorizontalAlignment="Left" Margin="26,20,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Button x:Name="LoadSensorDataButton" Content="Load Sensor Data" HorizontalAlignment="Left" Margin="17,74,0,0" VerticalAlignment="Top" Width="138" Grid.ColumnSpan="2" Click="LoadSensorDataButton_Click"/>
+        <ListView x:Name="SensorDataListView" Margin="17,99,420,0" Grid.ColumnSpan="2" d:ItemsSource="{d:SampleData ItemCount=5}" Height="202" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Sensor A"  DisplayMemberBinding="{Binding SensorA_ListView}" Width="55"/>
@@ -31,11 +31,11 @@
             </ListView.View>
         </ListView>
         <ListBox x:Name="SensorA_ListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="222,39,176,0" Grid.Column="1" Height="262" VerticalAlignment="Top"/>
-        <Label x:Name="SensorA_Label" Content="Sensor A" HorizontalAlignment="Left" Margin="99,4,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.Column="1"/>
+        <Label x:Name="SensorA_Label" Content="Sensor A: Refined Data" HorizontalAlignment="Left" Margin="99,4,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.Column="1"/>
         <TextBox x:Name="SensorA_IterativeSearchTextBox" HorizontalAlignment="Left" Margin="102,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
-        <Button x:Name="SensorA_IterativeSearchButton" Content="Iterative Search" HorizontalAlignment="Left" Margin="102,210,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
+        <Button x:Name="SensorA_IterativeSearchButton" Content="Iterative Search" HorizontalAlignment="Left" Margin="102,210,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorA_IterativeSearchButton_Click"/>
         <TextBox x:Name="SensorA_RecursiveSearchTextBox" HorizontalAlignment="Left" Margin="102,283,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
-        <Button x:Name="SensorA_RecursiveSearchButton" Content="Recursive Search" HorizontalAlignment="Left" Margin="102,258,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
+        <Button x:Name="SensorA_RecursiveSearchButton" Content="Recursive Search" HorizontalAlignment="Left" Margin="102,258,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorA_RecursiveSearchButton_Click"/>
         <TextBox x:Name="SensorA_InsertionSortTextBox" HorizontalAlignment="Left" Margin="102,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
         <Button x:Name="SensorA_InsertionSortButton" Content="Insertion Sort" HorizontalAlignment="Left" Margin="102,41,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Grid.Column="1" Click="SensorA_InsertionSortButton_Click"/>
         <TextBox x:Name="SensorA_SelectionSortTextBox" HorizontalAlignment="Left" Margin="102,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
@@ -43,17 +43,18 @@
         <TextBox x:Name="SensorA_SearchTargetTextBox" HorizontalAlignment="Left" Margin="102,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="19" Grid.Column="1"/>
         <Label x:Name="SensorA_SearchTargetLabel" Grid.Column="1" Content="Search Target:" HorizontalAlignment="Left" Margin="102,153,0,0" VerticalAlignment="Top" Width="100"/>
         <ListBox x:Name="SensorB_ListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="464,39,159,0" Grid.Column="1" Grid.ColumnSpan="2" Height="262" VerticalAlignment="Top"/>
-        <Label x:Name="SensorB_Label" Content="Sensor B" HorizontalAlignment="Left" Margin="341,4,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.Column="1"/>
+        <Label x:Name="SensorB_Label" Content="Sensor B: Refined Data" HorizontalAlignment="Left" Margin="341,4,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.Column="1" Grid.ColumnSpan="2" Width="184"/>
         <TextBox x:Name="SensorB_IterativeSearchTextBox" HorizontalAlignment="Left" Margin="344,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
-        <Button x:Name="SensorB_IterativeSearchButton" Content="Iterative Search" HorizontalAlignment="Left" Margin="344,206,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
+        <Button x:Name="SensorB_IterativeSearchButton" Content="Iterative Search" HorizontalAlignment="Left" Margin="344,206,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorB_IterativeSearchButton_Click"/>
         <TextBox x:Name="SensorB_RecursiveSearchTextBox" HorizontalAlignment="Left" Margin="344,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
-        <Button x:Name="SensorB_RecursiveSearchButton" Content="Recursive Search" HorizontalAlignment="Left" Margin="344,254,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
+        <Button x:Name="SensorB_RecursiveSearchButton" Content="Recursive Search" HorizontalAlignment="Left" Margin="344,254,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorB_RecursiveSearchButton_Click"/>
         <TextBox x:Name="SensorB_InsertionSortTextBox" HorizontalAlignment="Left" Margin="344,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
         <Button x:Name="SensorB_InsertionSortButton" Content="Insertion Sort" HorizontalAlignment="Left" Margin="344,41,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Grid.Column="1" Click="SensorB_InsertionSortButton_Click"/>
         <TextBox x:Name="SensorB_SelectionSortTextBox" HorizontalAlignment="Left" Margin="344,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
         <Button x:Name="SensorB_SelectionSortButton" Content="Selection Sort" HorizontalAlignment="Left" Margin="344,89,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorB_SelectionSortButton_Click"/>
         <TextBox x:Name="SensorB_SearchTargetTextBox" HorizontalAlignment="Left" Margin="344,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="19" Grid.Column="1"/>
         <Label x:Name="SensorB_SearchTargetLabel" Grid.Column="1" Content="Search Target:" HorizontalAlignment="Left" Margin="344,153,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="SensorA_Label_Copy" Content="Raw Data" HorizontalAlignment="Left" Margin="38,-3,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>

@@ -34,7 +34,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             InitializeComponent();
             PopulateComboBoxes();
             DisableSearchTargetTextBox();
-            DisableSearchButtons();
+            //DisableSearchButtons();
             DisableSortButtons();
         }
         #endregion
@@ -126,7 +126,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             ShowAllSensorData();
             DisplayListboxData(SensorA_LinkedList, SensorA_ListBox);
             DisplayListboxData(SensorB_LinkedList, SensorB_ListBox);
-            DisableSearchButtons();
+            //DisableSearchButtons();
             DisableSearchTargetTextBox();
             EnableSortButtons();
         }
@@ -264,6 +264,53 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         and highlight the search target number and two values on each side
         */
 
+        // Method to reduce repetition.
+        private void CountSearchDisplay(Func<LinkedList<double>, bool> sortTypeParameter, LinkedList<double> linkedListParameter, ListBox listBoxParameter, TextBox textBoxParamater)
+        {
+            // Start timer.
+            Stopwatch sw = Stopwatch.StartNew();
+
+            // Sort.
+            sortTypeParameter(linkedListParameter);
+
+            // Stop timer.
+            sw.Stop();
+
+            // Display sort time in milliseconds in text box.
+            textBoxParamater.Clear();
+            textBoxParamater.Text = sw.ElapsedMilliseconds.ToString() + " ms";
+
+            // Display linked list in list box.
+            DisplayListboxData(linkedListParameter, listBoxParameter);
+
+            // Enable searching elements.
+            EnableSearchTargetTextBox();
+        }
+
+        // 1. Method for Sensor A and Binary Search Iterative.
+        private void SensorA_IterativeSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // 2. Method for Sensor A and Binary Search Recursive.
+        private void SensorA_RecursiveSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // 3. Method for Sensor B and Binary Search Iterative.
+        private void SensorB_IterativeSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // 4. Method for Sensor B and Binary Search Recursive.
+        private void SensorB_RecursiveSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void EnableSearchButtons()
         {
             SensorA_IterativeSearchButton.IsEnabled = true;
@@ -396,6 +443,8 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             SensorB_SearchTargetTextBox.IsEnabled = false;
         }
         #endregion
+
         #endregion
+
     }
 }
