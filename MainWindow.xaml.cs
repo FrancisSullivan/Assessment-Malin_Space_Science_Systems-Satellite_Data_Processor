@@ -1,16 +1,20 @@
 ﻿#region Imports
 using Galileo6;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -218,7 +222,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             return true;
         }
         #endregion
-        #region -->TO DO!<-- 4.9 Search: Iterative
+        #region 4.9 Search: Iterative
         /*
         Create a method called “BinarySearchIterative” which has the following four parameters: LinkedList,
         SearchValue, Minimum and Maximum. This method will return an integer of the linkedlist element
@@ -226,10 +230,23 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         name, search value, minimum list size and the number of nodes in the list. The method code must
         follow the pseudo code supplied below in the Appendix.
         */
-        private int BinarySearchIterative()
+        private int BinarySearchIterative(LinkedList<double> linkedListParameter, int searchValueParameter, int minimumParameter, int maximumParameter)
         {
-            int one = 1;
-            return one;
+            while (minimumParameter <= maximumParameter - 1)
+            {
+                int middle = (minimumParameter + maximumParameter) / 2;
+                if(searchValueParameter == linkedListParameter.ElementAt(middle))
+                {
+                    return ++middle;
+                }
+                else if (searchValueParameter < linkedListParameter.ElementAt(middle))
+                {
+                    maximumParameter = middle - 1;
+                }
+                else
+                    minimumParameter = middle + 1;
+            }
+            return minimumParameter;
         }
         #endregion
         #region -->TO DO!<-- 4.10 Search: Recursive
@@ -265,32 +282,69 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         */
 
         // Method to reduce repetition.
-        private void CountSearchDisplay(Func<LinkedList<double>, bool> sortTypeParameter, LinkedList<double> linkedListParameter, ListBox listBoxParameter, TextBox textBoxParamater)
+        private void CountSearchDisplay(Func<LinkedList<double>, int, int, int, int> searchTypeParameter, LinkedList<double> linkedListParameter, int searchValueParameter, int minimumParameter, int maximumParameter, TextBox outputTextBoxParamater, ListBox listBoxParameter)
         {
             // Start timer.
             Stopwatch sw = Stopwatch.StartNew();
 
-            // Sort.
-            sortTypeParameter(linkedListParameter);
+            // Search.
+            int searchResultIndex = searchTypeParameter(linkedListParameter, searchValueParameter, minimumParameter, maximumParameter);
 
             // Stop timer.
             sw.Stop();
 
-            // Display sort time in milliseconds in text box.
-            textBoxParamater.Clear();
-            textBoxParamater.Text = sw.ElapsedMilliseconds.ToString() + " ms";
+            // Display sort time in ticks in text box.
+            outputTextBoxParamater.Clear();
+            outputTextBoxParamater.Text = sw.ElapsedTicks.ToString() + " ticks";
 
-            // Display linked list in list box.
-            DisplayListboxData(linkedListParameter, listBoxParameter);
+            // Enable multi-select on list box.
+            listBoxParameter.SelectionMode = SelectionMode.Multiple;
 
-            // Enable searching elements.
-            EnableSearchTargetTextBox();
+            // Clear list box.
+            listBoxParameter.SelectedItems.Clear();
+
+            // Select list box items.
+            // Highlight the search target number and two values on each side.
+            // Done in stages to aviod calling an index that does not exist, which would cause a crash.
+            switch (searchResultIndex)
+            {
+                // 2 values on the greater side.
+                case (0):
+                    SelectListBoxItems(listBoxParameter, 0, 2, searchResultIndex);
+                    break;
+                // 1 value on the lesser side, 2 on the greater.
+                case (1):
+                    SelectListBoxItems(listBoxParameter, -1, 2, searchResultIndex);
+                    break;
+                // 2 values on each side.
+                case (<398):
+                    SelectListBoxItems(listBoxParameter, -2, 2, searchResultIndex);
+                    break;
+                // 2 values on the lesser side, 1 on the greater.
+                case (398):
+                    SelectListBoxItems(listBoxParameter, -2, 1, searchResultIndex);
+                    break;
+                // 2 values on the lesser side.
+                case (399):
+                    SelectListBoxItems(listBoxParameter, -2, 0, searchResultIndex);
+                    break;
+            }
+        }
+
+        // Selects list box items.
+        // minParameter represents the index values to be printed to be selected that are less than the selected value,
+        // and maxParameter are those that are greater.
+        // This must be done carefully to avoid calling an index that does not exist, which would cause a crash.
+        private void SelectListBoxItems(ListBox listBoxParameter, int minParameter, int maxParameter, int searchResultIndexParameter)
+        {
+            for(int i = minParameter; i <= maxParameter; i++)
+                listBoxParameter.SelectedItems.Add(listBoxParameter.Items.GetItemAt(searchResultIndexParameter + i));
         }
 
         // 1. Method for Sensor A and Binary Search Iterative.
         private void SensorA_IterativeSearchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            CountSearchDisplay(BinarySearchIterative, SensorA_LinkedList, Int32.Parse(SensorA_SearchTargetTextBox.Text), 0, NumberOfNodes(SensorA_LinkedList)-1, SensorA_IterativeSearchTextBox, SensorA_ListBox);
         }
 
         // 2. Method for Sensor A and Binary Search Recursive.
@@ -302,7 +356,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         // 3. Method for Sensor B and Binary Search Iterative.
         private void SensorB_IterativeSearchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            CountSearchDisplay(BinarySearchIterative, SensorB_LinkedList, Int32.Parse(SensorB_SearchTargetTextBox.Text), 0, NumberOfNodes(SensorB_LinkedList) - 1, SensorB_IterativeSearchTextBox, SensorB_ListBox);
         }
 
         // 4. Method for Sensor B and Binary Search Recursive.
@@ -443,8 +497,6 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             SensorB_SearchTargetTextBox.IsEnabled = false;
         }
         #endregion
-
         #endregion
-
     }
 }
