@@ -9,8 +9,10 @@ using System.Diagnostics.Contracts;
 using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +24,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 #endregion
 namespace Malin_Space_Science_Systems_Satellite_Data_Processor
 {
@@ -38,8 +41,8 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             InitializeComponent();
             PopulateComboBoxes();
             DisableSearchTargetTextBox();
-            //DisableSearchButtons();
-            DisableSortButtons();
+            DisableSearchButtons();
+            DisableSortButtons(SensorA_LinkedList, SensorB_LinkedList);
         }
         #endregion
         #region Global Methods (4.1 to 4.4)
@@ -130,7 +133,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             ShowAllSensorData();
             DisplayListboxData(SensorA_LinkedList, SensorA_ListBox);
             DisplayListboxData(SensorB_LinkedList, SensorB_ListBox);
-            //DisableSearchButtons();
+            DisableSearchButtons();
             DisableSearchTargetTextBox();
             EnableSortButtons();
         }
@@ -164,10 +167,14 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             {
                 listBoxParameter.Items.Add(linkedListParameter.ElementAt(i));
             }
+
+            // Scroll to the top of the list box.
+            // If the user has scrolled down, this will reset it.
+            listBoxParameter.ScrollIntoView(listBoxParameter.Items.GetItemAt(0));
         }
         #endregion
         #endregion
-        #region -->TO DO!<-- Sort and Search Methods (4.7 to 4.10)
+        #region Sort and Search Methods (4.7 to 4.10)
         #region 4.7 Sort: Selection
         /*
         Create a method called “SelectionSort” which has a single input parameter of type LinkedList, while
@@ -249,7 +256,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             return minimumParameter;
         }
         #endregion
-        #region -->TO DO!<-- 4.10 Search: Recursive
+        #region 4.10 Search: Recursive
         /*
         Create a method called “BinarySearchRecursive” which has the following four parameters: LinkedList,
         SearchValue, Minimum and Maximum. This method will return an integer of the linkedlist element
@@ -257,17 +264,30 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         name, search value, minimum list size and the number of nodes in the list. The method code must
         follow the pseudo code supplied below in the Appendix.
         */
-
-        /*
-        private bool BinarySearchRecursive()
+        private int BinarySearchRecursive(LinkedList<double> linkedListParameter, int searchValueParameter, int minimumParameter, int maximumParameter)
         {
-            return;
+            if (minimumParameter <= maximumParameter - 1)
+            {
+                int middle = (minimumParameter + maximumParameter) / 2;
+                if (searchValueParameter == linkedListParameter.ElementAt(middle))
+                {
+                    return middle;
+                }
+                else if (searchValueParameter < linkedListParameter.ElementAt(middle))
+                {
+                    return BinarySearchRecursive(linkedListParameter, searchValueParameter, minimumParameter, middle - 1);
+                }
+                else
+                {
+                    return BinarySearchRecursive(linkedListParameter, searchValueParameter, middle + 1, maximumParameter);
+                }
+            }
+            return minimumParameter;
         }
-        */
         #endregion
         #endregion
-        #region -->TO DO!<-- UI Button Methods (4.11 to 4.15)
-        #region -->TO DO!<-- 4.11 Buttons: Search
+        #region UI Button Methods (4.11 to 4.15)
+        #region 4.11 Buttons: Search
         /*
         Create four button click methods that will search the LinkedList for an integer value entered into a
         textbox on the form. The four methods are:
@@ -282,53 +302,70 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         */
 
         // Method to reduce repetition.
-        private void CountSearchDisplay(Func<LinkedList<double>, int, int, int, int> searchTypeParameter, LinkedList<double> linkedListParameter, int searchValueParameter, int minimumParameter, int maximumParameter, TextBox outputTextBoxParamater, ListBox listBoxParameter)
+        private void CountSearchDisplay(Func<LinkedList<double>, int, int, int, int> searchTypeParameter, LinkedList<double> linkedListParameter, int searchValueParameter, int minimumParameter, int maximumParameter, TextBox outputTextBoxParamater, ListBox listBoxParameter, TextBox inputTextBoxParamater)
         {
-            // Start timer.
-            Stopwatch sw = Stopwatch.StartNew();
-
-            // Search.
-            int searchResultIndex = searchTypeParameter(linkedListParameter, searchValueParameter, minimumParameter, maximumParameter);
-
-            // Stop timer.
-            sw.Stop();
-
-            // Display sort time in ticks in text box.
-            outputTextBoxParamater.Clear();
-            outputTextBoxParamater.Text = sw.ElapsedTicks.ToString() + " ticks";
-
-            // Enable multi-select on list box.
-            listBoxParameter.SelectionMode = SelectionMode.Multiple;
-
-            // Clear list box.
-            listBoxParameter.SelectedItems.Clear();
-
-            // Select list box items.
-            // Highlight the search target number and two values on each side.
-            // Done in stages to aviod calling an index that does not exist, which would cause a crash.
-            switch (searchResultIndex)
+            // Check that the input from the search text box is within range.
+            if (
+                (InputTextBoxInteger(inputTextBoxParamater) >= linkedListParameter.ElementAt(0)
+                &&
+                (InputTextBoxInteger(SensorA_SearchTargetTextBox) <= linkedListParameter.ElementAt(NumberOfNodes(linkedListParameter) - 1)))
+                )
             {
-                // 2 values on the greater side.
-                case (0):
-                    SelectListBoxItems(listBoxParameter, 0, 2, searchResultIndex);
-                    break;
-                // 1 value on the lesser side, 2 on the greater.
-                case (1):
-                    SelectListBoxItems(listBoxParameter, -1, 2, searchResultIndex);
-                    break;
-                // 2 values on each side.
-                case (<398):
-                    SelectListBoxItems(listBoxParameter, -2, 2, searchResultIndex);
-                    break;
-                // 2 values on the lesser side, 1 on the greater.
-                case (398):
-                    SelectListBoxItems(listBoxParameter, -2, 1, searchResultIndex);
-                    break;
-                // 2 values on the lesser side.
-                case (399):
-                    SelectListBoxItems(listBoxParameter, -2, 0, searchResultIndex);
-                    break;
+                // Start timer.
+                Stopwatch sw = Stopwatch.StartNew();
+
+                // Search.
+                int searchResultIndex = searchTypeParameter(linkedListParameter, searchValueParameter, minimumParameter, maximumParameter);
+
+                // Scroll down the list box to focus on the searched item.
+                listBoxParameter.ScrollIntoView(listBoxParameter.Items.GetItemAt(searchResultIndex));
+
+                // Stop timer.
+                sw.Stop();
+
+                // Display sort time in ticks in text box.
+                outputTextBoxParamater.Clear();
+                outputTextBoxParamater.Text = sw.ElapsedTicks.ToString() + " ticks";
+
+                // Enable multi-select on list box.
+                listBoxParameter.SelectionMode = SelectionMode.Multiple;
+
+                // Clear list box.
+                listBoxParameter.SelectedItems.Clear();
+
+                // Select list box items.
+                // Highlight the search target number and two values on each side.
+                // Done in stages to aviod calling an index that does not exist, which would cause a crash.
+                switch (searchResultIndex)
+                {
+                    // 2 values on the greater side.
+                    case (0):
+                        SelectListBoxItems(listBoxParameter, 0, 2, searchResultIndex);
+                        break;
+                    // 1 value on the lesser side, 2 on the greater.
+                    case (1):
+                        SelectListBoxItems(listBoxParameter, -1, 2, searchResultIndex);
+                        break;
+                    // 2 values on each side.
+                    case (< 398):
+                        SelectListBoxItems(listBoxParameter, -2, 2, searchResultIndex);
+                        break;
+                    // 2 values on the lesser side, 1 on the greater.
+                    case (398):
+                        SelectListBoxItems(listBoxParameter, -2, 1, searchResultIndex);
+                        break;
+                    // 2 values on the lesser side.
+                    case (399):
+                        SelectListBoxItems(listBoxParameter, -2, 0, searchResultIndex);
+                        break;
+                }
             }
+            else
+            {
+                inputTextBoxParamater.Clear();
+                inputTextBoxParamater.Text = "Item of range \nplease try again";
+            }
+                
         }
 
         // Selects list box items.
@@ -344,32 +381,35 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         // 1. Method for Sensor A and Binary Search Iterative.
         private void SensorA_IterativeSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            CountSearchDisplay(BinarySearchIterative, SensorA_LinkedList, Int32.Parse(SensorA_SearchTargetTextBox.Text), 0, NumberOfNodes(SensorA_LinkedList)-1, SensorA_IterativeSearchTextBox, SensorA_ListBox);
+            CountSearchDisplay(BinarySearchIterative, SensorA_LinkedList, InputTextBoxInteger(SensorA_SearchTargetTextBox), 0, NumberOfNodes(SensorA_LinkedList)-1, SensorA_IterativeSearchTextBox, SensorA_ListBox, SensorA_SearchTargetTextBox);
         }
 
         // 2. Method for Sensor A and Binary Search Recursive.
         private void SensorA_RecursiveSearchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            CountSearchDisplay(BinarySearchRecursive, SensorA_LinkedList, InputTextBoxInteger(SensorA_SearchTargetTextBox), 0, NumberOfNodes(SensorA_LinkedList) - 1, SensorA_RecursiveSearchTextBox, SensorA_ListBox, SensorA_SearchTargetTextBox);
         }
 
         // 3. Method for Sensor B and Binary Search Iterative.
         private void SensorB_IterativeSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            CountSearchDisplay(BinarySearchIterative, SensorB_LinkedList, Int32.Parse(SensorB_SearchTargetTextBox.Text), 0, NumberOfNodes(SensorB_LinkedList) - 1, SensorB_IterativeSearchTextBox, SensorB_ListBox);
+            CountSearchDisplay(BinarySearchIterative, SensorB_LinkedList, InputTextBoxInteger(SensorB_SearchTargetTextBox), 0, NumberOfNodes(SensorB_LinkedList) - 1, SensorB_IterativeSearchTextBox, SensorB_ListBox, SensorB_SearchTargetTextBox);
         }
 
         // 4. Method for Sensor B and Binary Search Recursive.
         private void SensorB_RecursiveSearchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            CountSearchDisplay(BinarySearchRecursive, SensorB_LinkedList, InputTextBoxInteger(SensorB_SearchTargetTextBox), 0, NumberOfNodes(SensorB_LinkedList) - 1, SensorB_RecursiveSearchTextBox, SensorB_ListBox, SensorB_SearchTargetTextBox);
         }
 
-        private void EnableSearchButtons()
+        private void EnableSearchButtonsSensorA()
         {
             SensorA_IterativeSearchButton.IsEnabled = true;
-            SensorB_IterativeSearchButton.IsEnabled = true;
             SensorA_RecursiveSearchButton.IsEnabled = true;
+        }
+        private void EnableSearchButtonsSensorB()
+        {
+            SensorB_IterativeSearchButton.IsEnabled = true;
             SensorB_RecursiveSearchButton.IsEnabled = true;
         }
         private void DisableSearchButtons()
@@ -397,6 +437,13 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         // Method to reduce repetition.
         private void TimeSortDisplay(Func<LinkedList<double>, bool> sortTypeParameter, LinkedList<double> linkedListParameter, ListBox listBoxParameter, TextBox textBoxParamater)
         {
+            // Disable sort buttons.
+            // This way the user can only sort each list once.
+            // A list can not be sorted if it has already been sorted.
+            DisableSortButtons(linkedListParameter, linkedListParameter);
+
+            // Foucs on text box.
+
             // Start timer.
             Stopwatch sw = Stopwatch.StartNew();
 
@@ -413,8 +460,13 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             // Display linked list in list box.
             DisplayListboxData(linkedListParameter, listBoxParameter);
 
-            // Enable searching elements.
-            EnableSearchTargetTextBox();
+            // Enable the text box to enter search value.
+            EnableSearchTargetTextBox(linkedListParameter);
+
+            // Focus on the text box to enter search value.
+            FocusSearchTargetTextBox(linkedListParameter);
+
+
         }
 
         // 1. Button click method for Sensor A and Selection Sort.
@@ -448,12 +500,18 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             SensorA_InsertionSortButton.IsEnabled = true;
             SensorB_InsertionSortButton.IsEnabled = true;
         }
-        private void DisableSortButtons()
+        private void DisableSortButtons(LinkedList<double> liknedListParameter, LinkedList<double> liknedListParameter2)
         {
-            SensorA_SelectionSortButton.IsEnabled = false;
-            SensorB_SelectionSortButton.IsEnabled = false;
-            SensorA_InsertionSortButton.IsEnabled = false;
-            SensorB_InsertionSortButton.IsEnabled = false;
+            if ((liknedListParameter == SensorA_LinkedList) || (liknedListParameter2 == SensorA_LinkedList))
+            {
+                SensorA_SelectionSortButton.IsEnabled = false;
+                SensorA_InsertionSortButton.IsEnabled = false;
+            }
+            if ((liknedListParameter == SensorB_LinkedList) || (liknedListParameter2 == SensorB_LinkedList))
+            {
+                SensorB_InsertionSortButton.IsEnabled = false;
+                SensorB_SelectionSortButton.IsEnabled = false;
+            }
         }
         #endregion
         #region 4.13 Combo Boxes: Sigma and Mu
@@ -481,20 +539,91 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             MuComboBox.SelectedItem = 50.0;
         }
         #endregion
-        #region -->TO DO!<-- 4.14 Text Boxes: Interger Input for Search
+        #region 4.14 Text Boxes: Interger Input for Search
         /*
         Add two textboxes for the search value; one for each sensor, ensure only numeric integer values can
         be entered.
         */
-        private void EnableSearchTargetTextBox()
+
+        // Checks if what is entered into the input text box is an integer (not null),
+        // if not it will return 0.
+        // This ensures that what is read from the text box is always an integer,
+        // helping to prevent invalid-type crashes.
+        private int InputTextBoxInteger(TextBox inputTextBoxParamater)
         {
-            SensorA_SearchTargetTextBox.IsEnabled = true;
-            SensorB_SearchTargetTextBox.IsEnabled = true;
+            try
+            {
+                return Int32.Parse(inputTextBoxParamater.Text);
+            }
+            catch (Exception e) 
+            { 
+                return 0; 
+            }
+        }
+
+        // Ensure only numeric integer values can be entered.
+        private void SensorA_SearchTargetTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Enable search buttons if integer is input.
+            if (e.Handled = Regex.IsMatch(e.Text, "[^[0-9]+") != true)
+            {
+                EnableSearchButtonsSensorA();
+            }
+            // Block non-integer inputs.
+            e.Handled = Regex.IsMatch(e.Text, "[^[0-9]+");
+        }
+        private void SensorB_SearchTargetTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Enable search buttons if integer is input.
+            if (e.Handled = Regex.IsMatch(e.Text, "[^[0-9]+") != true)
+            {
+                EnableSearchButtonsSensorB();
+            }
+            // Block non-integer inputs.
+            e.Handled = Regex.IsMatch(e.Text, "[^[0-9]+");
+        }
+
+        private void EnableSearchTargetTextBox(LinkedList<double> linkedListParameter)
+        {
+            if (linkedListParameter == SensorA_LinkedList)
+            {
+                SensorA_SearchTargetTextBox.IsEnabled = true;
+            }
+            if (linkedListParameter == SensorB_LinkedList)
+            {
+                SensorB_SearchTargetTextBox.IsEnabled = true;
+            }
+        }
+        private void FocusSearchTargetTextBox(LinkedList<double> linkedListParameter)
+        {
+            if (linkedListParameter == SensorA_LinkedList)
+            {
+                SensorA_SearchTargetTextBox.Focus();
+            }
+            if (linkedListParameter == SensorB_LinkedList)
+            {
+                SensorB_SearchTargetTextBox.Focus();
+            }
         }
         private void DisableSearchTargetTextBox()
         {
             SensorA_SearchTargetTextBox.IsEnabled = false;
             SensorB_SearchTargetTextBox.IsEnabled = false;
+        }
+
+        // Clears the input text box back to empty when you click on it.
+        // Clears tick results.
+        private void SensorA_SearchTargetTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SensorA_SearchTargetTextBox.Clear();
+            SensorA_RecursiveSearchTextBox.Clear();
+            SensorA_IterativeSearchTextBox.Clear();
+        }
+        private void SensorB_SearchTargetTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SensorB_SearchTargetTextBox.Clear();
+            SensorB_RecursiveSearchTextBox.Clear();
+            SensorB_IterativeSearchTextBox.Clear();
         }
         #endregion
         #endregion

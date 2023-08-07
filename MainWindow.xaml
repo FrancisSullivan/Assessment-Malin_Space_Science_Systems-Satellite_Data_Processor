@@ -40,20 +40,20 @@
         <Button x:Name="SensorA_InsertionSortButton" Content="Insertion Sort" HorizontalAlignment="Left" Margin="102,41,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Grid.Column="1" Click="SensorA_InsertionSortButton_Click"/>
         <TextBox x:Name="SensorA_SelectionSortTextBox" HorizontalAlignment="Left" Margin="102,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
         <Button x:Name="SensorA_SelectionSortButton" Content="Selection Sort" HorizontalAlignment="Left" Margin="102,89,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorA_SelectionSortButton_Click"/>
-        <TextBox x:Name="SensorA_SearchTargetTextBox" HorizontalAlignment="Left" Margin="102,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="19" Grid.Column="1"/>
-        <Label x:Name="SensorA_SearchTargetLabel" Grid.Column="1" Content="Search Target:" HorizontalAlignment="Left" Margin="102,153,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="SensorA_SearchTargetTextBox" HorizontalAlignment="Left" Margin="102,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="39" Grid.Column="1" PreviewTextInput="SensorA_SearchTargetTextBox_PreviewTextInput" GotFocus="SensorA_SearchTargetTextBox_GotFocus" TextAlignment="Center"/>
+        <Label x:Name="SensorA_SearchTargetLabel" Grid.Column="1" Content="Search Target:" HorizontalAlignment="Left" Margin="102,140,0,0" VerticalAlignment="Top" Width="100"/>
         <ListBox x:Name="SensorB_ListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="464,39,159,0" Grid.Column="1" Grid.ColumnSpan="2" Height="262" VerticalAlignment="Top"/>
         <Label x:Name="SensorB_Label" Content="Sensor B: Refined Data" HorizontalAlignment="Left" Margin="341,4,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.Column="1" Grid.ColumnSpan="2" Width="184"/>
-        <TextBox x:Name="SensorB_IterativeSearchTextBox" HorizontalAlignment="Left" Margin="344,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
-        <Button x:Name="SensorB_IterativeSearchButton" Content="Iterative Search" HorizontalAlignment="Left" Margin="344,206,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorB_IterativeSearchButton_Click"/>
-        <TextBox x:Name="SensorB_RecursiveSearchTextBox" HorizontalAlignment="Left" Margin="344,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
-        <Button x:Name="SensorB_RecursiveSearchButton" Content="Recursive Search" HorizontalAlignment="Left" Margin="344,254,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorB_RecursiveSearchButton_Click"/>
+        <TextBox x:Name="SensorB_IterativeSearchTextBox" HorizontalAlignment="Left" Margin="344,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
+        <Button x:Name="SensorB_IterativeSearchButton" Content="Iterative Search" HorizontalAlignment="Left" Margin="344,210,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorB_IterativeSearchButton_Click"/>
+        <TextBox x:Name="SensorB_RecursiveSearchTextBox" HorizontalAlignment="Left" Margin="344,283,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
+        <Button x:Name="SensorB_RecursiveSearchButton" Content="Recursive Search" HorizontalAlignment="Left" Margin="344,258,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorB_RecursiveSearchButton_Click"/>
         <TextBox x:Name="SensorB_InsertionSortTextBox" HorizontalAlignment="Left" Margin="344,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
         <Button x:Name="SensorB_InsertionSortButton" Content="Insertion Sort" HorizontalAlignment="Left" Margin="344,41,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Grid.Column="1" Click="SensorB_InsertionSortButton_Click"/>
         <TextBox x:Name="SensorB_SelectionSortTextBox" HorizontalAlignment="Left" Margin="344,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Grid.Column="1" IsEnabled="False" TextAlignment="Center"/>
         <Button x:Name="SensorB_SelectionSortButton" Content="Selection Sort" HorizontalAlignment="Left" Margin="344,89,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="SensorB_SelectionSortButton_Click"/>
-        <TextBox x:Name="SensorB_SearchTargetTextBox" HorizontalAlignment="Left" Margin="344,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="19" Grid.Column="1"/>
-        <Label x:Name="SensorB_SearchTargetLabel" Grid.Column="1" Content="Search Target:" HorizontalAlignment="Left" Margin="344,153,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="SensorB_SearchTargetTextBox" HorizontalAlignment="Left" Margin="344,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="39" Grid.Column="1" PreviewTextInput="SensorB_SearchTargetTextBox_PreviewTextInput" GotFocus="SensorB_SearchTargetTextBox_GotFocus" TextAlignment="Center"/>
+        <Label x:Name="SensorB_SearchTargetLabel" Grid.Column="1" Content="Search Target:" HorizontalAlignment="Left" Margin="344,140,0,0" VerticalAlignment="Top" Width="100"/>
         <Label x:Name="SensorA_Label_Copy" Content="Raw Data" HorizontalAlignment="Left" Margin="38,-3,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
     </Grid>
