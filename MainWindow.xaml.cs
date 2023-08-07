@@ -28,9 +28,16 @@ using static System.Net.Mime.MediaTypeNames;
 #endregion
 namespace Malin_Space_Science_Systems_Satellite_Data_Processor
 {
-    #region -->TO DO!<-- Summary
+    #region Summary
     /// <summary>
-    /// 
+    /// Name: Francis Sullivan
+    /// Student ID: 30034007
+    /// Program description:
+    /// This program processes the data returned from the included "Galileo6" DLL. The data from each sensor is read into two 
+    /// linked lists of type “double”, which each represent the feed from a seperate satellite sensor. The data is then sorted 
+    /// using a Selection and Insertion sort algorithm. Next, the user can enter an integer value into a search textbox and 
+    /// select a Recursive or Iterative binary search algorithm. Finally, for each of the four algorithms the processing time is
+    /// measured and displayed.
     /// </summary>
     #endregion
     public partial class MainWindow : Window
@@ -304,11 +311,15 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
         // Method to reduce repetition.
         private void CountSearchDisplay(Func<LinkedList<double>, int, int, int, int> searchTypeParameter, LinkedList<double> linkedListParameter, int searchValueParameter, int minimumParameter, int maximumParameter, TextBox outputTextBoxParamater, ListBox listBoxParameter, TextBox inputTextBoxParamater)
         {
-            // Check that the input from the search text box is within range.
+            
             if (
-                (InputTextBoxInteger(inputTextBoxParamater) >= linkedListParameter.ElementAt(0)
+                // Check that the input from the search text box is within range.
+                ((InputTextBoxInteger(inputTextBoxParamater) >= linkedListParameter.ElementAt(0))
                 &&
                 (InputTextBoxInteger(inputTextBoxParamater) <= linkedListParameter.ElementAt(NumberOfNodes(linkedListParameter) - 1)))
+                &&
+                // Check to ensure the data is sorted.
+                (IsListSorted(linkedListParameter) == true)
                 )
             {
                 // Start timer.
@@ -360,12 +371,31 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
                         break;
                 }
             }
+            // If the input from the search text box is not within range return this message.
             else
             {
                 inputTextBoxParamater.Clear();
                 inputTextBoxParamater.Text = "Item of range \nplease try again";
             }
-                
+        }
+
+        // Checks if the linked list set as the parameter has been sorted.
+        // After a sort is completed the sort button is disabled.
+        // This method will check the buttons status to return the sort completion status.
+        private bool IsListSorted(LinkedList<double> linkedListParameter)
+        {
+            // Data has been sorted.
+            if ((linkedListParameter == SensorA_LinkedList) && ((SensorA_InsertionSortButton.IsEnabled == false) || (SensorA_SelectionSortButton.IsEnabled == false)))
+            {
+                return true;
+            }
+            // Data has been sorted.
+            if ((linkedListParameter == SensorB_LinkedList) && ((SensorB_InsertionSortButton.IsEnabled == false) || (SensorA_SelectionSortButton.IsEnabled == false)))
+            {
+                return true;
+            }
+            // Data has not been sorted.
+            else { return false; }
         }
 
         // Selects list box items.
@@ -442,8 +472,6 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             // A list can not be sorted if it has already been sorted.
             DisableSortButtons(linkedListParameter, linkedListParameter);
 
-            // Foucs on text box.
-
             // Start timer.
             Stopwatch sw = Stopwatch.StartNew();
 
@@ -460,13 +488,11 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             // Display linked list in list box.
             DisplayListboxData(linkedListParameter, listBoxParameter);
 
-            // Enable the text box to enter search value.
+            // Enable the search input text box.
             EnableSearchTargetTextBox(linkedListParameter);
 
-            // Focus on the text box to enter search value.
+            // Focus on the search input text box so the user can easily enter a search value.
             FocusSearchTargetTextBox(linkedListParameter);
-
-
         }
 
         // 1. Button click method for Sensor A and Selection Sort.
