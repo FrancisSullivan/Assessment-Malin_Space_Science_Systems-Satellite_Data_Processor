@@ -308,7 +308,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             if (
                 (InputTextBoxInteger(inputTextBoxParamater) >= linkedListParameter.ElementAt(0)
                 &&
-                (InputTextBoxInteger(SensorA_SearchTargetTextBox) <= linkedListParameter.ElementAt(NumberOfNodes(linkedListParameter) - 1)))
+                (InputTextBoxInteger(inputTextBoxParamater) <= linkedListParameter.ElementAt(NumberOfNodes(linkedListParameter) - 1)))
                 )
             {
                 // Start timer.
