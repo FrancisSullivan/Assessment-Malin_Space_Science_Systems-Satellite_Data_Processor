@@ -32,10 +32,11 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
     /// <summary>
     /// Name: Francis Sullivan
     /// Student ID: 30034007
+    /// Date: 2023.08.12
     /// Program description:
     /// This program processes the data returned from the included "Galileo6" DLL. The data from each sensor is read into two 
     /// linked lists of type “double”, which each represent the feed from a seperate satellite sensor. The data is then sorted 
-    /// using a Selection and Insertion sort algorithm. Next, the user can enter an integer value into a search textbox and 
+    /// using a Selection and Insertion sort algorithm. Next, the user can enter an integer value into a search text box and 
     /// select a Recursive or Iterative binary search algorithm. Finally, for each of the four algorithms the processing time is
     /// measured and displayed.
     /// </summary>
@@ -249,7 +250,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             while (minimumParameter <= maximumParameter - 1)
             {
                 int middle = (minimumParameter + maximumParameter) / 2;
-                if(searchValueParameter == linkedListParameter.ElementAt(middle))
+                if (searchValueParameter == linkedListParameter.ElementAt(middle))
                 {
                     return ++middle;
                 }
@@ -565,7 +566,7 @@ namespace Malin_Space_Science_Systems_Satellite_Data_Processor
             MuComboBox.SelectedItem = 50.0;
         }
         #endregion
-        #region 4.14 Text Boxes: Interger Input for Search
+        #region 4.14 Text Boxes: Integer Input for Search
         /*
         Add two textboxes for the search value; one for each sensor, ensure only numeric integer values can
         be entered.
