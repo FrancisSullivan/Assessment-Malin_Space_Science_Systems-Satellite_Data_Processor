@@ -1,1 +1,3 @@
 # Malin_Space_Science_Systems-Satellite_Data_Processor
+This program processes the data returned from the included "Galileo6" DLL. The data from each sensor is read into two linked lists of type “double”, which each represent the feed from a seperate satellite sensor. The data is then sorted using a Selection and Insertion sort algorithm. Next, the user can enter an integer value into a search text box and select a Recursive or Iterative binary search algorithm. Finally, for each of the four algorithms the processing time is measured and displayed.
+<img width="656" alt="GUI" src="https://github.com/FrancisSullivan/Malin_Space_Science_Systems-Satellite_Data_Processor/assets/99381522/dde54271-08dd-45e8-8576-973d5fbf0d0b">
